@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Diagnosis</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <!--Icon link-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="containerleft">
+        <div class="wrapper">
+            <div class="select-btn">
+                <span>Select Symptoms</span>
+                <i class="fa fa-plus-circle"></i>
+            </div>
+            <div class="content">
+                <div class="search">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Search">
+                </div>
+                <ul id="symptomList" class="options">
+                    {% for symptom in symptom_options|sort %}
+                        <li onclick="updateSymptom(this)">{{ symptom }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="containerright">
+        <div class="wrapper">
+            <div class="content">
+                <h2>Selected Symptoms</h2>
+                <div class="selected-symptoms-list">
+                    <!--selected symptoms here-->
+                </div>
+            </div>
+            <div class="button-container">
+                <div class="remove-btn">
+                    <span>Remove All</span>
+                </div>
+                <div class="selected-btn">
+                    <span>Start Diagnosis</span>
+                </div>
+            </div>
+        </div>
+            
+    </div>
+    <script src="/static/script.js"></script>
+    
+   
+
+</body>
+</html>

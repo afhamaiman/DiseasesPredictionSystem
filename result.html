@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result</title>
+    <link rel="stylesheet" href="/static/resultstyle.css">
+</head>
+<body>
+    <div class="containerleft">
+        <div class="wrapper">
+            <div class="content">
+                <h2>Result</h2>
+
+                <div class="result-cards">
+                    {% for prediction in top5_predictions %}
+                    <div class="result-card" onclick="showDiseaseDescription('{{ prediction.disease }}', {{ prediction.severity_value }})">
+                            <ul>
+                                <li>
+                                    <strong>Disease:</strong> {{ prediction.disease }}
+                                </li>
+                                <li>
+                                    {% set rounded_probability = "{:.2f}".format(prediction.probability * 100) %}
+                                    <strong>Probability: {{ rounded_probability }}%</strong>
+                                    <div class="progress-container">
+                                        
+                                       <div class="background-bar" ></div>                                        
+                                        <div class="progress-bar" style="width: {{ prediction.probability * 100 }}%;" data-content="{{ rounded_probability }}%">
+                                            
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <strong><p style= "font-size: 20px; font-weight: bold;">Severity:</p></strong>
+                                    <div class="progress-container">
+                                        <div class="background-bar"></div>
+                                        <div class="progress-bar" style="width: {{ prediction.severity_value * 10 }}%;" data-content="{{ prediction.severity_value }}">
+                                            {{ prediction.severity_value }}
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="containerright">
+        <div class="wrapper">
+            <div class="contentresult">
+                <p style= "font-size: 20px; font-weight: bold;">Selected Symptoms: </p> <p style= "color: #333;">{% for symptom in selected_symptoms %}
+                    {{ symptom }}
+                    {% if not loop.last %}, {% endif %}
+                {% endfor %}</p>
+            </div>  
+            <div id="diseaseDescriptionContainer" class="disease-description-container" style="max-height: 400px;">
+                <p>Do notes. This is all based on research for educational purpose only. Please go and have a medical check up at your nearby clinic or hospital! 🙇 </p>
+                <!-- Disease description card content will be dynamically added here -->
+            </div>
+            <a href="/" class="return-home-btn" id="returnHomeBtn">Start New Diagnosis</a>
+        </div>
+    </div>
+
+    <script>
+        // Ensure the "Return Home" button is always at the bottom of the right container
+        const returnHomeBtn = document.getElementById('returnHomeBtn');
+        returnHomeBtn.style.position = 'absolute';
+        returnHomeBtn.style.bottom = '0';
+    </script>
+</body>
+</html>
